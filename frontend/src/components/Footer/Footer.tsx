@@ -1,5 +1,9 @@
 /** @format */
 
 export const Footer = () => {
-  return <></>;
+  return (
+    <>
+      <button>Create!</button>
+    </>
+  );
 };
