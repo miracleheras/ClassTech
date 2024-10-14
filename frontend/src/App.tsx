@@ -1,7 +1,12 @@
 /** @format */
-
-import "./App.css";
+import { Header, Footer, Home } from "./components/view";
 
 export const App = () => {
-  return <></>;
+  return (
+    <>
+      <Header />
+      <Home></Home>
+      <Footer />
+    </>
+  );
 };
