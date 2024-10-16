@@ -1,12 +1,12 @@
 /** @format */
-import { Header, Footer, Home } from "./components/view";
 
-export const App = () => {
+import React from "react";
+import { LayoutComponent } from "./layouts/Laytout";
+
+export const App: React.FC = () => {
   return (
     <>
-      <Header />
-      <Home></Home>
-      <Footer />
+      <LayoutComponent />
     </>
   );
 };
