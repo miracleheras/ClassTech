@@ -1,14 +1,19 @@
 /** @format */
 
 import React from "react";
-import { mocData } from "moc";
 import { Recipe } from "components/recipe/Recipe";
-export const RecipeList: React.FC = () => {
+import { recipeType } from "types";
+
+interface RecipeListProps {
+  recipeArray: recipeType[];
+}
+
+export const RecipeList: React.FC<RecipeListProps> = ({ recipeArray }) => {
   return (
     <>
-      <div>
-        {mocData.map((recipe, index) => (
-          <Recipe recipeData={recipe} key={index} />
+      <div className="flex flex-col h-full w-[800px] rounded-[20px] gap-[2px] items-cetner justify-center">
+        {recipeArray.map((recipe) => (
+          <Recipe recipeData={recipe} key={recipe.title} />
         ))}
       </div>
     </>
