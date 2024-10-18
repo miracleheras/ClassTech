@@ -9,9 +9,11 @@ interface RecipeProps {
 }
 
 export const Recipe: React.FC<RecipeProps> = ({ recipeData }) => {
-  const { setIsEdit, setEditingRecipeId, recipes } = useContext(MainContext);
+  const { setIsEdit, setEditingRecipeId, recipes, setRecipes } =
+    useContext(MainContext);
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setRecipes(recipes.filter((_, index) => index !== recipeData.id));
     e.stopPropagation();
   };
 
