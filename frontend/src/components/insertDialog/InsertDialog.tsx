@@ -4,16 +4,13 @@ import { MainContext } from "context/MainContext";
 import React, { useContext, useState } from "react";
 import { recipeType } from "types";
 
-interface EditDialogProps {
-  recipe: recipeType;
-}
-
-export const EditDialogComponent: React.FC<EditDialogProps> = ({ recipe }) => {
-  const { recipes, setRecipes, editingRecipeID, setIsEdit } =
+export const InsertDialogComponent: React.FC = () => {
+  const { recipes, setRecipes, setIsShowInsertDialog } =
     useContext(MainContext);
-  const [title, setTitle] = useState<string>(recipe.title);
-  const [instruction, setInstruction] = useState<string>(recipe.instruction);
-  const [ingredients, setIngredients] = useState<string[]>(recipe.ingredients);
+
+  const [title, setTitle] = useState<string>("");
+  const [instruction, setInstruction] = useState<string>("");
+  const [ingredients, setIngredients] = useState<string[]>([]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
@@ -27,26 +24,26 @@ export const EditDialogComponent: React.FC<EditDialogProps> = ({ recipe }) => {
 
   const onClickOK = () => {
     const updatedRecipe: recipeType = {
-      ...recipes[editingRecipeID],
+      id: Math.max(...recipes.map((recipe) => recipe.id)) + 1,
       title: title,
       instruction: instruction,
       ingredients: ingredients,
     };
     const updatedRecipes: recipeType[] = [...recipes];
-    updatedRecipes[editingRecipeID] = updatedRecipe;
+    updatedRecipes.push(updatedRecipe);
 
     setRecipes(updatedRecipes);
 
-    setIsEdit(false);
+    setIsShowInsertDialog(false);
   };
 
   const onClickCancel = () => {
-    setIsEdit(false);
+    setIsShowInsertDialog(false);
   };
 
   const deleteIngredient = (deleteID: number) => {
     const updatedIngredients = ingredients.filter(
-      (_, index) => index != deleteID
+      (_, index: number) => index != deleteID
     );
     setIngredients(updatedIngredients);
   };
@@ -66,11 +63,10 @@ export const EditDialogComponent: React.FC<EditDialogProps> = ({ recipe }) => {
     setIngredients([...ingredients, value]);
     e.currentTarget.value = "";
   };
-
   return (
     <>
       <div className="w-[600px] h-[400px] flex flex-col z-10 absolute items-center bg-gray-100 rounded-[20px] shalow-lg border p-[30px]">
-        <div className="text-[30px] text-blue-400">Edit Recipe!</div>
+        <div className="text-[30px] text-blue-400">Insert Recipe!</div>
         <div className="flex flex-col">
           <div className="flex flex-row w-full pl-[20px] pr-[20px] pt-[10px] pb-[10px] text-center gap-[5px]">
             <div>

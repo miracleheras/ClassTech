@@ -1,7 +1,7 @@
 /** @format */
 
 import { EditDialogComponent } from "components/editDialog/EditDialog";
-import { RecipeDialogComponent } from "components/recipeDialog/RecipeDialog";
+import { InsertDialogComponent } from "components/insertDialog/InsertDialog";
 import { RecipeList } from "components/recipeList/recipeList";
 import { MainContext } from "context/MainContext";
 import React, { useContext } from "react";
@@ -11,11 +11,8 @@ export const Home: React.FC = () => {
     isShowInsertDialog,
     setIsShowInsertDialog,
     editingRecipeID,
-    setEditingRecipeId,
     isEdit,
-    setIsEdit,
     recipes,
-    setRecipes,
   } = useContext(MainContext);
 
   return (
@@ -29,7 +26,7 @@ export const Home: React.FC = () => {
         >
           Insert Recipe
         </button>
-        {isShowInsertDialog && <RecipeDialogComponent />}
+        {isShowInsertDialog && <InsertDialogComponent />}
         {isEdit && <EditDialogComponent recipe={recipes[editingRecipeID]} />}
         <RecipeList recipeArray={recipes} />
       </div>
