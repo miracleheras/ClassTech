@@ -1,7 +1,7 @@
 /** @format */
 
-import { EditDialogComponent } from "components/editDialog/EditDialog";
-import React, { useState } from "react";
+import { MainContext } from "context/MainContext";
+import React, { useContext } from "react";
 import { recipeType } from "types";
 
 interface RecipeProps {
@@ -9,8 +9,7 @@ interface RecipeProps {
 }
 
 export const Recipe: React.FC<RecipeProps> = ({ recipeData }) => {
-  const [recipe, setRecipe] = useState<recipeType>(recipeData);
-  const [isShowEditDialog, setIsShowEditDialog] = useState<boolean>(false);
+  const { setIsEdit } = useContext(MainContext);
 
   const onClickDelete = () => {
     console.log("delete");
@@ -20,16 +19,16 @@ export const Recipe: React.FC<RecipeProps> = ({ recipeData }) => {
     <>
       <div
         className="w-full flex bg-red-50 border-2 m-[5px] hover:border-2 hover:border-green-600 hover:cursor-pointer shadow-lg"
-        onClick={() => setIsShowEditDialog(true)}
+        onClick={() => setIsEdit(true)}
       >
         <div className="min-w-[20px] p-[5px] items-center border">
-          {recipe.id + 1}
+          {recipeData.id + 1}
         </div>
         <div className="min-w-[100px] p-[5px] items-center border">
-          {recipe.title}
+          {recipeData.title}
         </div>
         <div className="w-full items-center p-[5px] border">
-          {recipe.instruction}
+          {recipeData.instruction}
         </div>
         {/* <div className="min-w-[150px] flex gap-[5px] border">
           {recipe.ingredients.map((ingredient, index) => (

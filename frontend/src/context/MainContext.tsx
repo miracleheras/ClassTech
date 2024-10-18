@@ -9,21 +9,41 @@ interface MainProiderProps {
 }
 
 interface MainContextProps {
+  editingRecipeID: number;
+  setEditingRecipeId: (recipeID: number) => void;
   recipes: recipeType[];
+  isEdit: boolean;
+  setIsEdit: (isEdit: boolean) => void;
   setRecipes: (recipes: recipeType[]) => void;
 }
 
 export const MainContext = createContext<MainContextProps>({
-  recipes: [],
+  editingRecipeID: 0,
+  setEditingRecipeId: () => {},
+  isEdit: false,
+  setIsEdit: () => {},
+  recipes: mocData,
   setRecipes: () => {},
 });
 
 export const MainContextProvider: React.FC<MainProiderProps> = ({
   children,
 }) => {
+  const [editingRecipeId, setEditingRecipeId] = useState<number>(0);
   const [recipes, setRecipes] = useState<recipeType[]>(mocData);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+
   return (
-    <MainContext.Provider value={{ recipes: recipes, setRecipes: setRecipes }}>
+    <MainContext.Provider
+      value={{
+        setIsEdit: setIsEdit,
+        isEdit: isEdit,
+        editingRecipeID: editingRecipeId,
+        recipes: recipes,
+        setEditingRecipeId: setEditingRecipeId,
+        setRecipes: setRecipes,
+      }}
+    >
       {children}
     </MainContext.Provider>
   );

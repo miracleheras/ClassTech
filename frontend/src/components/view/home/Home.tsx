@@ -3,14 +3,22 @@
 import { EditDialogComponent } from "components/editDialog/EditDialog";
 import { RecipeDialogComponent } from "components/recipeDialog/RecipeDialog";
 import { RecipeList } from "components/recipeList/recipeList";
-import { mocData } from "moc";
-import React, { useState } from "react";
-import { recipeType } from "types";
+import { MainContext } from "context/MainContext";
+import React, { useContext, useEffect, useState } from "react";
 
 export const Home: React.FC = () => {
-  const [recipes, setRecipes] = useState<recipeType[]>(mocData);
+  // const [recipes, setRecipes] = useState<recipeType[]>(mocData);
   const [isShowInsertDialog, setIsShowInsertDialog] = useState<boolean>(false);
-  const [isShowEditDialog, setIsShowEditDialog] = useState<boolean>(false);
+  // const [isShowEditDialog, setIsShowEditDialog] = useState<boolean>(false);
+
+  const {
+    editingRecipeID,
+    setEditingRecipeId,
+    isEdit,
+    setIsEdit,
+    recipes,
+    setRecipes,
+  } = useContext(MainContext);
 
   return (
     <>
@@ -24,7 +32,7 @@ export const Home: React.FC = () => {
           Insert Recipe
         </button>
         {isShowInsertDialog && <RecipeDialogComponent />}
-        {isShowEditDialog && <EditDialogComponent />}
+        {isEdit && <EditDialogComponent recipe={recipes[editingRecipeID]} />}
         <RecipeList recipeArray={recipes} />
       </div>
     </>
