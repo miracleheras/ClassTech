@@ -74,6 +74,7 @@ export const InsertDialogComponent: React.FC = () => {
               <textarea
                 className="p-[10px] h-[200px] w-[70px] focus:outline-none resize-none"
                 rows={3}
+                required
                 onChange={handleTitleChange}
                 value={title}
               ></textarea>
@@ -83,6 +84,7 @@ export const InsertDialogComponent: React.FC = () => {
                 Instruction
               </div>
               <textarea
+                required
                 className="p-[10px] h-[200px] w-[350px] resize-none focus:outline-none"
                 rows={3}
                 onChange={handleIntroductionChange}
@@ -106,6 +108,7 @@ export const InsertDialogComponent: React.FC = () => {
                 <input
                   className="w-full border-[2px] border-blue-500 "
                   onKeyDown={handleKeyDown}
+                  required
                 ></input>
               </div>
             </div>

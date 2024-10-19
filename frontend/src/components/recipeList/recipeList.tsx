@@ -13,7 +13,7 @@ export const RecipeList: React.FC<RecipeListProps> = ({ recipeArray }) => {
     <>
       <div className="flex flex-col h-full w-[800px] rounded-[20px] gap-[2px] items-cetner justify-center">
         {recipeArray.map((recipe) => (
-          <Recipe recipeData={recipe} key={recipe.title} />
+          <Recipe recipeData={recipe} key={recipe.id} />
         ))}
       </div>
     </>

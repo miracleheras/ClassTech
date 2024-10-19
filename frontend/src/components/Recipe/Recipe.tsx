@@ -13,12 +13,13 @@ export const Recipe: React.FC<RecipeProps> = ({ recipeData }) => {
     useContext(MainContext);
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setRecipes(recipes.filter((_, index) => index !== recipeData.id));
+    setRecipes([...recipes.filter((recipe) => recipe.id !== recipeData.id)]);
     e.stopPropagation();
   };
 
   const onClickRecipe = () => {
     setEditingRecipeId(recipeData.id);
+    console.log("recipeData.id", recipeData.id);
     setIsEdit(true);
   };
 
