@@ -6,7 +6,7 @@ import { RecipeList } from "components/recipeList/recipeList";
 import { MainContext } from "context/MainContext";
 import React, { useContext } from "react";
 
-export const Home: React.FC = () => {
+export const HomeView: React.FC = () => {
   const {
     isShowInsertDialog,
     setIsShowInsertDialog,

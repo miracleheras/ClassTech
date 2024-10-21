@@ -1,19 +1,32 @@
 /** @format */
 
-import { Footer, Header, Home } from "components/view";
-import { MainContextProvider } from "context/MainContext";
+import { Footer, Header } from "components/view";
 import React from "react";
 
-export const LayoutComponent: React.FC = () => {
+interface LayoutComponentProps {
+  children: React.ReactNode;
+}
+
+export const LayoutComponent: React.FC<LayoutComponentProps> = ({
+  children,
+}) => {
   return (
     <>
-      <MainContextProvider>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <Home />
-          <Footer />
-        </div>
-      </MainContextProvider>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        {children}
+        <Footer />
+      </div>
     </>
   );
 };
+
+export const withLayoutComponent =
+  (Page: React.FC): React.FC =>
+  () => {
+    return (
+      <LayoutComponent>
+        <Page />
+      </LayoutComponent>
+    );
+  };
