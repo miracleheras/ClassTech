@@ -1,8 +1,8 @@
 /** @format */
 
-import { EditDialogComponent } from "components/editDialog/EditDialog";
-import { InsertDialogComponent } from "components/insertDialog/InsertDialog";
-import { RecipeList } from "components/recipeList/recipeList";
+import { EditDialogComponent } from "components/common/editDialog/EditDialog";
+import { InsertDialogComponent } from "components/common/insertDialog/InsertDialog";
+import { RecipeList } from "components/common/recipeList/recipeList";
 import { MainContext } from "context/MainContext";
 import React, { useContext } from "react";
 

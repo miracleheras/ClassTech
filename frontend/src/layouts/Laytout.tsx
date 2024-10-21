@@ -7,9 +7,7 @@ interface LayoutComponentProps {
   children: React.ReactNode;
 }
 
-export const LayoutComponent: React.FC<LayoutComponentProps> = ({
-  children,
-}) => {
+const LayoutComponent: React.FC<LayoutComponentProps> = ({ children }) => {
   return (
     <>
       <div className="flex flex-col min-h-screen">

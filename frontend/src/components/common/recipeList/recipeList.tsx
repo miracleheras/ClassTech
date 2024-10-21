@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { Recipe } from "components/recipe/Recipe";
+import { Recipe } from "components/common/recipe/Recipe";
 import { recipeType } from "types";
 
 interface RecipeListProps {
