@@ -37,31 +37,29 @@ export const HomeView: React.FC<HomeViewProps> = ({
   const { insertOrEdit, recipes } = useContext(MainContext);
 
   return (
-    <>
-      <div className="w-full h-full flex justify-center flex-col flex-grow p-[100px] gap-[50px] font-serif items-center">
-        <button
-          className="w-[120px] h-[40px] bg-pink-200 rounded-md hover:border hover:border-pink-200 hover:bg-yellow-200 hover:text-white p-[5px]"
-          onClick={onClickInsert}
-        >
-          Insert Recipe
-        </button>
-        {insertOrEdit !== "" && (
-          <DialogComponent
-            handleIntroductionChange={handleIntroductionChange}
-            handleKeyDown={handleKeyDown}
-            handleTitleChange={handleTitleChange}
-            onClickCancel={onClickCancel}
-            onClickOK={onClickOK}
-            deleteIngredient={deleteIngredient}
-            recipe={recipe}
-          />
-        )}
-        <RecipeList
-          recipeArray={recipes}
-          onClickDelete={onClickDelete}
-          onClickRecipe={onClickRecipe}
+    <div className="w-full h-full flex justify-center flex-col flex-grow p-[100px] gap-[50px] font-serif items-center">
+      <button
+        className="w-[120px] h-[40px] bg-pink-200 rounded-md hover:border hover:border-pink-200 hover:bg-yellow-200 hover:text-white p-[5px]"
+        onClick={onClickInsert}
+      >
+        Insert Recipe
+      </button>
+      {insertOrEdit !== "" && (
+        <DialogComponent
+          handleIntroductionChange={handleIntroductionChange}
+          handleKeyDown={handleKeyDown}
+          handleTitleChange={handleTitleChange}
+          onClickCancel={onClickCancel}
+          onClickOK={onClickOK}
+          deleteIngredient={deleteIngredient}
+          recipe={recipe}
         />
-      </div>
-    </>
+      )}
+      <RecipeList
+        recipeArray={recipes}
+        onClickDelete={onClickDelete}
+        onClickRecipe={onClickRecipe}
+      />
+    </div>
   );
 };

@@ -29,19 +29,19 @@ export const MainContext = createContext<MainContextProps>({
 export const MainContextProvider: React.FC<MainProiderProps> = ({
   children,
 }) => {
-  const [editingRecipeId, setEditingRecipeId] = useState<number>(0);
+  const [editingRecipeID, setEditingRecipeId] = useState<number>(0);
   const [recipes, setRecipes] = useState<recipeType[]>(mocData);
-  const [isShowOrEdit, setIsShowOrEdit] = useState<string>("");
+  const [insertOrEdit, setInsertOrEdit] = useState<string>("");
 
   return (
     <MainContext.Provider
       value={{
-        insertOrEdit: isShowOrEdit,
-        setInsertOrEdit: setIsShowOrEdit,
-        editingRecipeID: editingRecipeId,
-        recipes: recipes,
-        setEditingRecipeId: setEditingRecipeId,
-        setRecipes: setRecipes,
+        insertOrEdit,
+        setInsertOrEdit,
+        editingRecipeID,
+        recipes,
+        setEditingRecipeId,
+        setRecipes,
       }}
     >
       {children}

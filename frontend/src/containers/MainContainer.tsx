@@ -44,11 +44,18 @@ export const MainContainer: React.FC = () => {
     const updatedRecipes: recipeType[] = [...recipes];
     updatedRecipes[editingRecipeID] = updatedRecipe;
 
-    setRecipes(
-      insertOrEdit === "Insert" ? [...recipes, updatedRecipe] : updatedRecipes
-    );
-
-    setInsertOrEdit("");
+    if (
+      recipe.title === "" ||
+      recipe.instruction === "" ||
+      recipe.ingredients.length === 0
+    ) {
+      alert("Please fill out all inputs");
+    } else {
+      setInsertOrEdit("");
+      setRecipes(
+        insertOrEdit === "Insert" ? [...recipes, updatedRecipe] : updatedRecipes
+      );
+    }
   };
 
   const onClickCancel = () => {
