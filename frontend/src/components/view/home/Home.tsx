@@ -1,19 +1,38 @@
 /** @format */
 
-import { EditDialogComponent } from "components/common/editDialog/EditDialog";
-import { InsertDialogComponent } from "components/common/insertDialog/InsertDialog";
+import { DialogComponent } from "components/common/dialog/Dialog";
 import { RecipeList } from "components/common/recipeList/recipeList";
 import { MainContext } from "context/MainContext";
 import React, { useContext } from "react";
+import { recipeType } from "types";
 
-export const HomeView: React.FC = () => {
-  const {
-    isShowInsertDialog,
-    setIsShowInsertDialog,
-    editingRecipeID,
-    isEdit,
-    recipes,
-  } = useContext(MainContext);
+interface HomeViewProps {
+  handleTitleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleIntroductionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onClickOK: () => void;
+  onClickCancel: () => void;
+  deleteIngredient: (index: number) => void;
+  handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  recipe: recipeType;
+  onClickDelete: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    recipeData: recipeType
+  ) => void;
+  onClickRecipe: (recipeData: recipeType) => void;
+}
+
+export const HomeView: React.FC<HomeViewProps> = ({
+  recipe,
+  handleTitleChange,
+  handleIntroductionChange,
+  onClickOK,
+  onClickCancel,
+  deleteIngredient,
+  handleKeyDown,
+  onClickDelete,
+  onClickRecipe,
+}) => {
+  const { isInsertOrEdit, setIsShowOrEdit, recipes } = useContext(MainContext);
 
   return (
     <>
@@ -21,14 +40,27 @@ export const HomeView: React.FC = () => {
         <button
           className="w-[120px] h-[40px] bg-pink-200 rounded-md hover:border hover:border-pink-200 hover:bg-yellow-200 hover:text-white p-[5px]"
           onClick={() => {
-            setIsShowInsertDialog(true);
+            setIsShowOrEdit("Insert");
           }}
         >
           Insert Recipe
         </button>
-        {isShowInsertDialog && <InsertDialogComponent />}
-        {isEdit && <EditDialogComponent recipe={recipes[editingRecipeID]} />}
-        <RecipeList recipeArray={recipes} />
+        {isInsertOrEdit !== "" && (
+          <DialogComponent
+            handleIntroductionChange={handleIntroductionChange}
+            handleKeyDown={handleKeyDown}
+            handleTitleChange={handleTitleChange}
+            onClickCancel={onClickCancel}
+            onClickOK={onClickOK}
+            deleteIngredient={deleteIngredient}
+            recipe={recipe}
+          />
+        )}
+        <RecipeList
+          recipeArray={recipes}
+          onClickDelete={onClickDelete}
+          onClickRecipe={onClickRecipe}
+        />
       </div>
     </>
   );

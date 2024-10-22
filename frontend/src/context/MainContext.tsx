@@ -9,23 +9,19 @@ interface MainProiderProps {
 }
 
 interface MainContextProps {
-  isShowInsertDialog: boolean;
-  setIsShowInsertDialog: (isShow: boolean) => void;
+  isInsertOrEdit: string;
+  setIsShowOrEdit: (setIsshoworEdit: string) => void;
   editingRecipeID: number;
   setEditingRecipeId: (recipeID: number) => void;
   recipes: recipeType[];
-  isEdit: boolean;
-  setIsEdit: (isEdit: boolean) => void;
   setRecipes: (recipes: recipeType[]) => void;
 }
 
 export const MainContext = createContext<MainContextProps>({
-  isShowInsertDialog: false,
-  setIsShowInsertDialog: () => {},
+  isInsertOrEdit: "",
+  setIsShowOrEdit: () => {},
   editingRecipeID: 0,
   setEditingRecipeId: () => {},
-  isEdit: false,
-  setIsEdit: () => {},
   recipes: mocData,
   setRecipes: () => {},
 });
@@ -35,16 +31,13 @@ export const MainContextProvider: React.FC<MainProiderProps> = ({
 }) => {
   const [editingRecipeId, setEditingRecipeId] = useState<number>(0);
   const [recipes, setRecipes] = useState<recipeType[]>(mocData);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isShowInsertDialog, setIsShowInsertDialog] = useState<boolean>(false);
+  const [isShowOrEdit, setIsShowOrEdit] = useState<string>("");
 
   return (
     <MainContext.Provider
       value={{
-        isShowInsertDialog: isShowInsertDialog,
-        setIsShowInsertDialog: setIsShowInsertDialog,
-        setIsEdit: setIsEdit,
-        isEdit: isEdit,
+        isInsertOrEdit: isShowOrEdit,
+        setIsShowOrEdit: setIsShowOrEdit,
         editingRecipeID: editingRecipeId,
         recipes: recipes,
         setEditingRecipeId: setEditingRecipeId,
