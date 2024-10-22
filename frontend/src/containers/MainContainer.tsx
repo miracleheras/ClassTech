@@ -7,8 +7,8 @@ import { recipeType } from "types";
 
 export const MainContainer: React.FC = () => {
   const {
-    isInsertOrEdit,
-    setIsShowOrEdit,
+    insertOrEdit,
+    setInsertOrEdit,
     recipes,
     editingRecipeID,
     setRecipes,
@@ -34,7 +34,7 @@ export const MainContainer: React.FC = () => {
   const onClickOK = () => {
     const updatedRecipe: recipeType = {
       id:
-        isInsertOrEdit === "Insert"
+        insertOrEdit === "Insert"
           ? Math.max(...recipes.map((recipe) => recipe.id)) + 1
           : editingRecipeID,
       title: recipe.title,
@@ -45,14 +45,14 @@ export const MainContainer: React.FC = () => {
     updatedRecipes[editingRecipeID] = updatedRecipe;
 
     setRecipes(
-      isInsertOrEdit === "Insert" ? [...recipes, updatedRecipe] : updatedRecipes
+      insertOrEdit === "Insert" ? [...recipes, updatedRecipe] : updatedRecipes
     );
 
-    setIsShowOrEdit("");
+    setInsertOrEdit("");
   };
 
   const onClickCancel = () => {
-    setIsShowOrEdit("");
+    setInsertOrEdit("");
   };
 
   const deleteIngredient = (deleteID: number) => {
@@ -88,11 +88,17 @@ export const MainContainer: React.FC = () => {
 
   const onClickRecipe = (recipeData: recipeType) => {
     setEditingRecipeId(recipeData.id);
-    setIsShowOrEdit("Edit");
+    setInsertOrEdit("Edit");
+  };
+
+  const onClickInsert = () => {
+    setInsertOrEdit("Insert");
+    setRecipe({ id: -1, title: "", instruction: "", ingredients: [] });
   };
 
   return (
     <HomeView
+      onClickInsert={onClickInsert}
       recipe={recipe}
       handleIntroductionChange={handleIntroductionChange}
       handleTitleChange={handleTitleChange}

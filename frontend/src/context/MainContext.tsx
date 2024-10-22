@@ -9,8 +9,8 @@ interface MainProiderProps {
 }
 
 interface MainContextProps {
-  isInsertOrEdit: string;
-  setIsShowOrEdit: (setIsshoworEdit: string) => void;
+  insertOrEdit: string;
+  setInsertOrEdit: (setIsshoworEdit: string) => void;
   editingRecipeID: number;
   setEditingRecipeId: (recipeID: number) => void;
   recipes: recipeType[];
@@ -18,8 +18,8 @@ interface MainContextProps {
 }
 
 export const MainContext = createContext<MainContextProps>({
-  isInsertOrEdit: "",
-  setIsShowOrEdit: () => {},
+  insertOrEdit: "",
+  setInsertOrEdit: () => {},
   editingRecipeID: 0,
   setEditingRecipeId: () => {},
   recipes: mocData,
@@ -36,8 +36,8 @@ export const MainContextProvider: React.FC<MainProiderProps> = ({
   return (
     <MainContext.Provider
       value={{
-        isInsertOrEdit: isShowOrEdit,
-        setIsShowOrEdit: setIsShowOrEdit,
+        insertOrEdit: isShowOrEdit,
+        setInsertOrEdit: setIsShowOrEdit,
         editingRecipeID: editingRecipeId,
         recipes: recipes,
         setEditingRecipeId: setEditingRecipeId,

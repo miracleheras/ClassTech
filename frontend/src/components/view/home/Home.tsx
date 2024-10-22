@@ -19,6 +19,7 @@ interface HomeViewProps {
     recipeData: recipeType
   ) => void;
   onClickRecipe: (recipeData: recipeType) => void;
+  onClickInsert: () => void;
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({
@@ -31,21 +32,20 @@ export const HomeView: React.FC<HomeViewProps> = ({
   handleKeyDown,
   onClickDelete,
   onClickRecipe,
+  onClickInsert,
 }) => {
-  const { isInsertOrEdit, setIsShowOrEdit, recipes } = useContext(MainContext);
+  const { insertOrEdit, recipes } = useContext(MainContext);
 
   return (
     <>
       <div className="w-full h-full flex justify-center flex-col flex-grow p-[100px] gap-[50px] font-serif items-center">
         <button
           className="w-[120px] h-[40px] bg-pink-200 rounded-md hover:border hover:border-pink-200 hover:bg-yellow-200 hover:text-white p-[5px]"
-          onClick={() => {
-            setIsShowOrEdit("Insert");
-          }}
+          onClick={onClickInsert}
         >
           Insert Recipe
         </button>
-        {isInsertOrEdit !== "" && (
+        {insertOrEdit !== "" && (
           <DialogComponent
             handleIntroductionChange={handleIntroductionChange}
             handleKeyDown={handleKeyDown}

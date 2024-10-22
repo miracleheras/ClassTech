@@ -1,6 +1,7 @@
 /** @format */
 
-import React from "react";
+import { MainContext } from "context/MainContext";
+import React, { useContext } from "react";
 import { recipeType } from "types";
 
 interface EditDialogProps {
@@ -22,6 +23,8 @@ export const DialogComponent: React.FC<EditDialogProps> = ({
   onClickCancel,
   onClickOK,
 }) => {
+  const { insertOrEdit } = useContext(MainContext);
+
   return (
     <>
       <div className="w-[600px] h-[400px] flex flex-col z-10 absolute items-center bg-gray-100 rounded-[20px] shalow-lg border p-[30px]">
@@ -35,7 +38,9 @@ export const DialogComponent: React.FC<EditDialogProps> = ({
                 rows={3}
                 onChange={handleTitleChange}
                 value={recipe.title}
-              ></textarea>
+              >
+                {insertOrEdit === "Insert" ? "" : recipe.title}
+              </textarea>
             </div>
             <div>
               <div className="tex-bold text-purple-400 text-[20px]">
@@ -46,7 +51,9 @@ export const DialogComponent: React.FC<EditDialogProps> = ({
                 rows={3}
                 onChange={handleIntroductionChange}
                 value={recipe.instruction}
-              ></textarea>
+              >
+                {insertOrEdit === "Insert" ? "" : recipe.instruction}
+              </textarea>
             </div>
             <div>
               <div className="tex-bold text-purple-400 text-[20px]">
