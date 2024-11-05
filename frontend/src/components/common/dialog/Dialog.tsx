@@ -27,7 +27,9 @@ export const DialogComponent: React.FC<EditDialogProps> = ({
 
   return (
     <div className="w-[600px] h-[400px] flex flex-col z-10 absolute items-center bg-gray-100 rounded-[20px] shalow-lg border p-[30px]">
-      <div className="text-[30px] text-blue-400">Edit Recipe!</div>
+      <div className="text-[30px] text-blue-400">
+        {insertOrEdit === "Insert" ? "Insert Recipe!" : "Edit Recipe!"}
+      </div>
       <div className="flex flex-col">
         <div className="flex flex-row w-full pl-[20px] pr-[20px] pt-[10px] pb-[10px] text-center gap-[5px]">
           <div>
