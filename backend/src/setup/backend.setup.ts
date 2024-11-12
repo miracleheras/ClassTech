@@ -1,0 +1,2 @@
+/** @format */
+export const backendSetup = () => {};
