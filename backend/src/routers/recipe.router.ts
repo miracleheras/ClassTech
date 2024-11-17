@@ -23,3 +23,9 @@ recipeRouter.get(
   validate(recipeUpdateValidationSchema),
   recipeController.updateRecipe
 );
+
+recipeRouter.delete(
+  "/:id",
+  validate(recipeIDValidationSchema),
+  recipeController.deleteRecipe
+);

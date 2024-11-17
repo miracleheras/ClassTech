@@ -19,12 +19,28 @@ export const createRecipeService = async ({
 export const updateRecipeService = async (
   uuid: string,
   recipe: UpdateRecipeRequestType
-): Promise<RecipeEntity> => {
+): Promise<RecipeEntity | null> => {
   const recipeRepository = AppDataSource.getRepository(RecipeEntity);
 
   const oldRecipe: RecipeEntity | null = await recipeRepository.findOneBy({
     uuid,
   });
 
-  return await recipeRepository.save({ ...oldRecipe, recipe });
+  if (oldRecipe)
+    return await recipeRepository.save({ ...oldRecipe, ...recipe });
+  return null;
+};
+
+export const deleteRecipeService = async (
+  uuid: string
+): Promise<boolean | null> => {
+  const recipeRepository = AppDataSource.getRepository(RecipeEntity);
+
+  const deletingRecipe: RecipeEntity | null = await recipeRepository.findOneBy({
+    uuid,
+  });
+  if (deletingRecipe) {
+    await recipeRepository.softRemove(deletingRecipe);
+    return true;
+  } else return false;
 };

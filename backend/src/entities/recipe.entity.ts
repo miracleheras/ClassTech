@@ -1,9 +1,10 @@
 /** @format */
 
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { CoreEntity } from "./core.entity";
 
 @Entity({ name: "recipe" })
-export class RecipeEntity {
+export class RecipeEntity extends CoreEntity {
   @PrimaryGeneratedColumn("uuid")
   uuid: string;
 
