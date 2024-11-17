@@ -37,7 +37,14 @@ const getRecipeHandler = async (req: Request, res: Response) => {
   res.status(httpStatus.OK).json(recipe);
 };
 
+const getAllRecipeHandler = async (req: Request, res: Response) => {
+  const recipes = await recipeService.getAllRecipeService();
+
+  res.status(httpStatus.OK).json(recipes);
+};
+
 export const createRecipe = errorHandlerWrapper(createRecipeHandler);
 export const updateRecipe = errorHandlerWrapper(updateRecipeHandler);
 export const deleteRecipe = errorHandlerWrapper(deleteRecipeHandler);
 export const getRecipe = errorHandlerWrapper(getRecipeHandler);
+export const getAllRecipe = errorHandlerWrapper(getAllRecipeHandler);

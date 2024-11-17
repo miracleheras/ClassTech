@@ -56,3 +56,12 @@ export const getRecipeService = async (
   if (gettingRecipe) return gettingRecipe;
   return null;
 };
+
+export const getAllRecipeService = async (): Promise<RecipeEntity[] | null> => {
+  const recipeRepository = AppDataSource.getRepository(RecipeEntity);
+
+  return await recipeRepository.query(`
+    SELECT * from recipe
+    WHERE deleted_at IS NULL;
+    `);
+};

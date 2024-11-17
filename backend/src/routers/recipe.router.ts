@@ -35,3 +35,5 @@ recipeRouter.get(
   validate(recipeIDValidationSchema),
   recipeController.getRecipe
 );
+
+recipeRouter.get("/", recipeController.getAllRecipe);
