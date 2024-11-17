@@ -3,7 +3,7 @@
 import { backendSetup, databaseSetup } from "setup";
 import { Logger } from "utils";
 import { MESSAGES } from "consts";
-import { AppDataSource } from "data-source";
+import { AppDataSource } from "@/setup/data-source";
 
 const setupSever = async () => {
   try {

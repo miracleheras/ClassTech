@@ -6,3 +6,9 @@ export type CreateRecipeRequestType = {
   instruction: string;
   ingredients: string[];
 };
+
+export type UpdateRecipeRequestType = {
+  title: string;
+  instruction: string;
+  ingredients: string[];
+};
