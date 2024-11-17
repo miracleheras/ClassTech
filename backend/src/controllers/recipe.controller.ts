@@ -31,6 +31,13 @@ const deleteRecipeHandler = async (req: Request, res: Response) => {
   res.status(httpStatus.OK).json({});
 };
 
+const getRecipeHandler = async (req: Request, res: Response) => {
+  const recipe = await recipeService.getRecipeService(req.params.id);
+
+  res.status(httpStatus.OK).json(recipe);
+};
+
 export const createRecipe = errorHandlerWrapper(createRecipeHandler);
 export const updateRecipe = errorHandlerWrapper(updateRecipeHandler);
 export const deleteRecipe = errorHandlerWrapper(deleteRecipeHandler);
+export const getRecipe = errorHandlerWrapper(getRecipeHandler);

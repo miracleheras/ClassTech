@@ -44,3 +44,15 @@ export const deleteRecipeService = async (
     return true;
   } else return false;
 };
+
+export const getRecipeService = async (
+  uuid: string
+): Promise<RecipeEntity | null> => {
+  const recipeRepository = AppDataSource.getRepository(RecipeEntity);
+
+  const gettingRecipe: RecipeEntity | null = await recipeRepository.findOneBy({
+    uuid,
+  });
+  if (gettingRecipe) return gettingRecipe;
+  return null;
+};

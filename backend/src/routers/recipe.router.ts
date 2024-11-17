@@ -11,13 +11,13 @@ import { Router } from "express";
 
 export const recipeRouter = Router();
 
-recipeRouter.get(
+recipeRouter.post(
   "/",
   validate(recipeCreateValidationSchema),
   recipeController.createRecipe
 );
 
-recipeRouter.get(
+recipeRouter.put(
   "/:id",
   validate(recipeIDValidationSchema),
   validate(recipeUpdateValidationSchema),
@@ -28,4 +28,10 @@ recipeRouter.delete(
   "/:id",
   validate(recipeIDValidationSchema),
   recipeController.deleteRecipe
+);
+
+recipeRouter.get(
+  "/:id",
+  validate(recipeIDValidationSchema),
+  recipeController.getRecipe
 );
