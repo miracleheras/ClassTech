@@ -1,6 +1,6 @@
 /** @format */
 
-import { Path } from "constants";
+import { Path } from "./constants";
 import { HomePage } from "pages";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

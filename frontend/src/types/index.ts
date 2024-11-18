@@ -1,7 +1,7 @@
 /** @format */
 
-export type recipeType = {
-  id: number;
+export type RecipeType = {
+  uuid: string;
   title: string;
   instruction: string;
   ingredients: string[];

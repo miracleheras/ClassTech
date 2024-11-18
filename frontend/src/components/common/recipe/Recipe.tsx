@@ -1,15 +1,15 @@
 /** @format */
 
 import React from "react";
-import { recipeType } from "types";
+import { RecipeType } from "types";
 
 interface RecipeProps {
-  onClickRecipe: (recipeData: recipeType) => void;
+  onClickRecipe: (recipeData: RecipeType) => void;
   onClickDelete: (
     e: React.MouseEvent<HTMLButtonElement>,
-    recipeData: recipeType
+    recipeData: RecipeType
   ) => void;
-  recipeData: recipeType;
+  recipeData: RecipeType;
 }
 
 export const Recipe: React.FC<RecipeProps> = ({
@@ -20,7 +20,7 @@ export const Recipe: React.FC<RecipeProps> = ({
   return (
     <>
       <div
-        className="w-full flex bg-red-50 border-2 m-[5px] hover:border-2 hover:border-green-600 hover:cursor-pointer shadow-lg"
+        className="w-full flex bg-red-50 border-2 m-[5px] hover:border-2 hover:border-pink-300 hover:cursor-pointer text-blue-900 shadow-lg"
         onClick={() => onClickRecipe(recipeData)}
       >
         <div className="w-[150px] p-[5px] items-center overflow-auto border">

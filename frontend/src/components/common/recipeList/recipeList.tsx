@@ -2,14 +2,14 @@
 
 import React from "react";
 import { Recipe } from "components/common/recipe/Recipe";
-import { recipeType } from "types";
+import { RecipeType } from "types";
 
 interface RecipeListProps {
-  recipeArray: recipeType[];
-  onClickRecipe: (recipeData: recipeType) => void;
+  recipeArray: RecipeType[];
+  onClickRecipe: (recipeData: RecipeType) => void;
   onClickDelete: (
     e: React.MouseEvent<HTMLButtonElement>,
-    recipeData: recipeType
+    recipeData: RecipeType
   ) => void;
 }
 
@@ -24,7 +24,7 @@ export const RecipeList: React.FC<RecipeListProps> = ({
         {recipeArray.map((recipe) => (
           <Recipe
             recipeData={recipe}
-            key={recipe.id}
+            key={recipe.uuid}
             onClickDelete={(e) => onClickDelete(e, recipe)}
             onClickRecipe={() => onClickRecipe(recipe)}
           />

@@ -1,8 +1,7 @@
 /** @format */
-
-import { mocData } from "moc";
-import React, { createContext, useState } from "react";
-import { recipeType } from "types";
+import React, { createContext, useEffect, useState } from "react";
+import { RecipeType } from "types";
+import axios from "axios";
 
 interface MainProiderProps {
   children: React.ReactNode;
@@ -11,27 +10,38 @@ interface MainProiderProps {
 interface MainContextProps {
   insertOrEdit: string;
   setInsertOrEdit: (setIsshoworEdit: string) => void;
-  editingRecipeID: number;
-  setEditingRecipeId: (recipeID: number) => void;
-  recipes: recipeType[];
-  setRecipes: (recipes: recipeType[]) => void;
+  editingRecipeID: string;
+  setEditingRecipeId: (recipeID: string) => void;
+  recipes: RecipeType[];
+  setRecipes: (recipes: RecipeType[]) => void;
 }
 
 export const MainContext = createContext<MainContextProps>({
   insertOrEdit: "",
   setInsertOrEdit: () => {},
-  editingRecipeID: 0,
+  editingRecipeID: "",
   setEditingRecipeId: () => {},
-  recipes: mocData,
+  recipes: [],
   setRecipes: () => {},
 });
 
 export const MainContextProvider: React.FC<MainProiderProps> = ({
   children,
 }) => {
-  const [editingRecipeID, setEditingRecipeId] = useState<number>(0);
-  const [recipes, setRecipes] = useState<recipeType[]>(mocData);
+  const [editingRecipeID, setEditingRecipeId] = useState<string>("");
+  const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [insertOrEdit, setInsertOrEdit] = useState<string>("");
+
+  useEffect(() => {
+    axios
+      .get<RecipeType[]>("http://localhost:5001/api/recipes/")
+      .then((response) => {
+        setRecipes([...response.data]);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <MainContext.Provider

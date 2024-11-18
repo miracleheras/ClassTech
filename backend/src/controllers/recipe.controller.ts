@@ -1,6 +1,5 @@
 /** @format */
 
-import { errorHandlerMiddleware } from "@/middleware";
 import { recipeService } from "@/services";
 import { errorHandlerWrapper } from "@/utils/errorHandlerWrapper";
 import { Request, Response } from "express";

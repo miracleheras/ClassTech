@@ -3,23 +3,23 @@
 import { HomeView } from "components/view";
 import { MainContext } from "context/MainContext";
 import React, { useContext, useEffect, useState } from "react";
-import { recipeType } from "types";
+import { RecipeType } from "types";
+import axios from "axios";
 
 export const MainContainer: React.FC = () => {
-  const {
-    insertOrEdit,
-    setInsertOrEdit,
-    recipes,
-    editingRecipeID,
-    setRecipes,
-    setEditingRecipeId,
-  } = useContext(MainContext);
-
-  const [recipe, setRecipe] = useState<recipeType>(recipes[editingRecipeID]);
+  const { insertOrEdit, setInsertOrEdit, recipes, setRecipes } =
+    useContext(MainContext);
 
   useEffect(() => {
-    setRecipe(recipes[editingRecipeID]);
-  }, [editingRecipeID]);
+    console.log(recipes);
+  }, []);
+
+  const [recipe, setRecipe] = useState<RecipeType>({
+    uuid: "",
+    title: "",
+    instruction: "",
+    ingredients: [],
+  });
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setRecipe({ ...recipe, title: e.target.value });
@@ -32,17 +32,42 @@ export const MainContainer: React.FC = () => {
   };
 
   const onClickOK = () => {
-    const updatedRecipe: recipeType = {
-      id:
-        insertOrEdit === "Insert"
-          ? Math.max(...recipes.map((recipe) => recipe.id)) + 1
-          : editingRecipeID,
-      title: recipe.title,
-      instruction: recipe.instruction,
-      ingredients: recipe.ingredients,
-    };
-    const updatedRecipes: recipeType[] = [...recipes];
-    updatedRecipes[editingRecipeID] = updatedRecipe;
+    if (insertOrEdit === "Insert") {
+      axios
+        .post("http://localhost:5001/api/recipes/", {
+          title: recipe.title,
+          instruction: recipe.instruction,
+          ingredients: recipe.ingredients,
+        })
+        .then((response) => {
+          setRecipe(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+
+    if (insertOrEdit === "Edit") {
+      axios
+        .put(`http://localhost:5001/api/recipes/${recipe.uuid}`, {
+          title: recipe.title,
+          instruction: recipe.instruction,
+          ingredients: recipe.ingredients,
+        })
+        .then((response) => {
+          setRecipe(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+
+    const updatedRecipes: RecipeType[] = recipes.map((r) => {
+      if (r.uuid === recipe.uuid) {
+        r = recipe;
+      }
+      return r;
+    });
 
     if (
       recipe.title === "" ||
@@ -53,7 +78,7 @@ export const MainContainer: React.FC = () => {
     } else {
       setInsertOrEdit("");
       setRecipes(
-        insertOrEdit === "Insert" ? [...recipes, updatedRecipe] : updatedRecipes
+        insertOrEdit === "Insert" ? [...recipes, recipe] : updatedRecipes
       );
     }
   };
@@ -87,20 +112,31 @@ export const MainContainer: React.FC = () => {
 
   const onClickDelete = (
     e: React.MouseEvent<HTMLButtonElement>,
-    recipeData: recipeType
+    recipeData: RecipeType
   ) => {
-    setRecipes([...recipes.filter((recipe) => recipe.id !== recipeData.id)]);
+    console.log(recipeData.uuid);
+    axios
+      .delete(`http://localhost:5001/api/recipes/${recipeData.uuid}`)
+      .then((response) => {
+        console.log(response.data);
+        setRecipes([
+          ...recipes.filter((recipe) => recipe.uuid !== recipeData.uuid),
+        ]);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     e.stopPropagation();
   };
 
-  const onClickRecipe = (recipeData: recipeType) => {
-    setEditingRecipeId(recipeData.id);
+  const onClickRecipe = (recipeData: RecipeType) => {
+    setRecipe(recipeData);
     setInsertOrEdit("Edit");
   };
 
   const onClickInsert = () => {
     setInsertOrEdit("Insert");
-    setRecipe({ id: -1, title: "", instruction: "", ingredients: [] });
+    setRecipe({ uuid: "", title: "", instruction: "", ingredients: [] });
   };
 
   return (

@@ -2,7 +2,7 @@
 
 import { MainContext } from "context/MainContext";
 import React, { useContext } from "react";
-import { recipeType } from "types";
+import { RecipeType } from "types";
 
 interface EditDialogProps {
   handleTitleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -11,7 +11,7 @@ interface EditDialogProps {
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onClickOK: () => void;
   onClickCancel: () => void;
-  recipe: recipeType;
+  recipe: RecipeType;
 }
 
 export const DialogComponent: React.FC<EditDialogProps> = ({
