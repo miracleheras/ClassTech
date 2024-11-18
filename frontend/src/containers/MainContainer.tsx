@@ -2,17 +2,13 @@
 
 import { HomeView } from "components/view";
 import { MainContext } from "context/MainContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { RecipeType } from "types";
 import axios from "axios";
 
 export const MainContainer: React.FC = () => {
   const { insertOrEdit, setInsertOrEdit, recipes, setRecipes } =
     useContext(MainContext);
-
-  useEffect(() => {
-    console.log(recipes);
-  }, []);
 
   const [recipe, setRecipe] = useState<RecipeType>({
     uuid: "",
