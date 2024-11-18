@@ -5,7 +5,7 @@ import { RecipeList } from "components/common/recipeList/recipeList";
 import { MainContext } from "context/MainContext";
 import React, { useContext } from "react";
 import { RecipeType } from "types";
-import background from "background.jpg";
+import background from "assets/background.jpg";
 
 interface HomeViewProps {
   handleTitleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
