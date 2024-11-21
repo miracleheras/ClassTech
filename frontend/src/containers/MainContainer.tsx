@@ -27,8 +27,13 @@ export const MainContainer: React.FC = () => {
     setRecipe({ ...recipe, instruction: e.target.value });
   };
 
+  enum ModifyType {
+    INSERT="INSERT",
+    EDIT="EDIT"
+  }
+
   const onClickOK = () => {
-    if (insertOrEdit === "Insert") {
+    if (insertOrEdit === ModifyType.INSERT) {
       axios
         .post("http://localhost:5001/api/recipes/", {
           title: recipe.title,
@@ -43,7 +48,7 @@ export const MainContainer: React.FC = () => {
         });
     }
 
-    if (insertOrEdit === "Edit") {
+    if (insertOrEdit === ModifyType.EDIT) {
       axios
         .put(`http://localhost:5001/api/recipes/${recipe.uuid}`, {
           title: recipe.title,

@@ -27,7 +27,7 @@ const updateRecipeHandler = async (req: Request, res: Response) => {
 const deleteRecipeHandler = async (req: Request, res: Response) => {
   await recipeService.deleteRecipeService(req.params.id);
 
-  res.status(httpStatus.OK).json({});
+  res.status(httpStatus.NO_CONTENT).json({});
 };
 
 const getRecipeHandler = async (req: Request, res: Response) => {
